@@ -1,13 +1,20 @@
-#Experiments Drag Drop
-##Description
+# Experiments Drag Drop
+
+## Description
+
 Experimentation with Drag and Drop without a library in React
-###Resizable Grid
+
+### Resizable Grid
+
 Resizable Grid creates a grid with resizable cells
-###Resizable
+
+### Resizable
+
 Resizable generates a number of resizable divs that can be resized and moved
 
-##Getting Started
-###Prerequisites
+## Getting Started
+
+### Prerequisites
 
 1. Node JS
 2. NPM
