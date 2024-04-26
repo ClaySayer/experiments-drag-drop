@@ -16,11 +16,11 @@ const dilate = (originalCoordinate, newCoordinate, fixedCoordinate, margin) => {
   return direction > 0
     ? {
         start: fixedCoordinate,
-        length: Math.abs(newCoordinate - fixedCoordinate)
+        length: Math.abs(newCoordinate - fixedCoordinate),
       }
     : {
         start: newCoordinate,
-        length: Math.abs(newCoordinate - fixedCoordinate)
+        length: Math.abs(newCoordinate - fixedCoordinate),
       };
 };
 
@@ -34,13 +34,13 @@ const move = ({ bounds, point, offset }) => {
   return { left: newX, top: newY };
 };
 
-const composeTransformations = (transformations) => (bounds, point, margin) =>
+const composeTransformations = transformations => (bounds, point, margin) =>
   transformations.reduce(
     (acc, currentTransformation) => {
       const transformation = currentTransformation(bounds, point, margin);
       return { ...acc, ...transformation };
     },
-    { ...bounds }
+    { ...bounds },
   );
 
 const dilateE = ({ bounds, point, margin }) => {
@@ -72,7 +72,7 @@ const dilateSW = composeTransformations([dilateS, dilateW]);
 const dilateSE = composeTransformations([dilateS, dilateE]);
 const dilateNW = composeTransformations([dilateN, dilateW]);
 
-export default {
+const transformations = {
   dilateE,
   dilateW,
   dilateN,
@@ -81,5 +81,7 @@ export default {
   dilateSW,
   dilateSE,
   dilateNW,
-  move
+  move,
 };
+
+export default transformations;
