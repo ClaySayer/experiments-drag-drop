@@ -1,0 +1,59 @@
+import React from 'react';
+
+export default class Resizable extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cursor: 'default',
+      top: props.top,
+      left: props.left,
+      height: props.height,
+      width: props.width
+    };
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+  }
+
+  handleMouseMove(e) {
+    this.setState({ cursor: 'move' });
+  }
+
+  handleMouseDown(e) {
+    this.props.onResizeStart(e);
+  }
+
+  handleMouseUp(e, fixedPoint) {
+    let point = fixedPoint;
+    if (!point) {
+      point = { x: this.left, y: this.top };
+    }
+    const top = point.y ? Math.min(point.y, e.clientY) : this.state.top;
+    const left = point.x ? Math.min(point.x, e.clientX) : this.state.left;
+    const height = point.y ? Math.abs(e.clientY - point.y) : this.state.height;
+    const width = point.x ? Math.abs(e.clientX - point.x) : this.state.width;
+    this.setState({top, left, height, width});
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          top: `${this.state.top}px`,
+          left: `${this.state.left}px`,
+          height: `${this.state.height}px`,
+          width: `${this.state.width}px`,
+          position: 'absolute',
+          backgroundColor: this.props.backgroundColor,
+          cursor: this.state.cursor,
+          userSelect: 'none'
+        }}
+        onMouseMove={this.handleMouseMove}
+        onMouseDown={this.handleMouseDown}
+        onMouseUp={this.handleMouseUp}
+      >
+        {`${this.props.left}, ${this.props.top}`}
+      </div>
+    );
+  }
+}

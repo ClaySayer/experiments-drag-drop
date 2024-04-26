@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Route from './components/Route'
+
+import SideBar from './components/SideBar'
+import GridPage from './pages/GridPage';
+import ResizablePage from './pages/ResizablePage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return(
+    <div className="app">
+
+      <SideBar />
+      <div className="main">
+        <Route path='/'>
+          <div>HOME PAGE</div>
+        </Route>
+        <Route path='/grid'>
+          <GridPage />
+        </Route>
+        <Route path='/resizable'>
+          <ResizablePage />
+        </Route>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;

@@ -1,0 +1,32 @@
+import React from 'react';
+import Resizable from './Resizable';
+import ResizableContainer from './ResizableContainer';
+
+function randomInteger(min, max) {
+  const range = max - min;
+  return min + Math.floor(Math.random() * Math.floor(range));
+}
+
+let data = [];
+
+for (let i = 0; i < 10000; i++) {
+  data.push({
+    top: randomInteger(50, 520),
+    left: randomInteger(50, 560),
+    height: randomInteger(50, 150),
+    width: randomInteger(50, 200),
+    backgroundColor: `rgb(${randomInteger(0, 255)},
+      ${randomInteger(0, 255)}, 
+      ${randomInteger(0, 255)})`
+  });
+}
+
+const App = () => (
+  <ResizableContainer style={{ backgroundColor: '#EEEEEE', height: '100%', width: '100%' }}>
+    {data.map((element, index) => (
+      <Resizable key={index} {...element} />
+    ))}
+  </ResizableContainer>
+);
+
+export default App;

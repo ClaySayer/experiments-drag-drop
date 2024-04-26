@@ -1,0 +1,55 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import Resizable from './Resizable';
+import Sizable from './Sizable';
+import Handle from './Handle';
+
+class Cell extends React.Component {
+  static propTypes = {
+    resizable: PropTypes.bool
+  };
+  static defaultProps = {
+    resizable: false
+  };
+  render() {
+    let handle = null;
+    const {axis, ...rest} = this.props;
+    switch (this.props.axis) {
+      case 'x':
+        handle = (
+          <Handle
+            width={2}
+            top={this.props.top}
+            height="100%"
+            left={this.props.width - 2}
+            cursor="col-resize"
+            handleMouseDown={this.props.resizeStart}
+          />
+        );
+        break;
+      case 'y':
+        handle = (
+          <Handle
+            left={0}
+            width="100%"
+            height={2}
+            top={this.props.height - 2}
+            cursor="row-resize"
+            handleMouseDown={this.props.resizeStart}
+          />
+        );
+        break;
+      default:
+        handle = null;
+    }
+    return this.props.resizable ? (
+      <Resizable handles={handle} {...rest}>
+        {this.props.children}
+      </Resizable>
+    ) : (
+      <Sizable {...rest}>{this.props.children}</Sizable>
+    );
+  }
+}
+
+export default Cell;
